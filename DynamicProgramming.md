@@ -12,3 +12,8 @@
 2. Memorization, hash table, avoid repeated computation, Top-Bottom approach
 3. Loop, dp table[i] <= dp table[i-1], bottom-top approach
 4. N, dp table[N+1], dp_i = dp_i-1 + dp_i-2
+
+
+# exercises
+
+887. Super Egg Drop -"hard but popular in interview" 
