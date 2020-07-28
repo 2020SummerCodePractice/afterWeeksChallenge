@@ -23,7 +23,44 @@
 ```
 
 ```cpp
+class LRUCache {
+public:
+    list<pair<int, int>> data;
+    unordered_map<int, list<pair<int, int>>::iterator> index;
+    int cap = 0;
 
+    LRUCache(int capacity) {
+        cap = capacity;
+    }
+
+    int get(int key) {
+        if (index.count(key) < 1)
+            return -1;
+        //index[key]
+        auto ele = *(index[key]);
+
+        data.erase(index[key]);
+        data.push_back(ele);
+        index[ele.first] = --data.end();
+
+        return ele.second;
+    }
+
+    void put(int key, int value) {
+        pair<int, int> ele{ key, value };
+
+        if (index.count(key) > 0) {
+            data.erase(index[key]);
+        }else if(data.size() >= cap){
+            index.erase(data.front().first);
+            data.pop_front();
+        }
+
+        data.push_back(ele);
+        index[ele.first] = --data.end();
+
+    }
+};
 ```
 
 ```go
