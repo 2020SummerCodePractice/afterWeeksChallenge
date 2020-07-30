@@ -26,7 +26,7 @@
 class LRUCache {
 public:
     //# hyribd use of STL, double linked list and key value index
-    
+
     list<pair<int, int>> data;
     unordered_map<int, list<pair<int, int>>::iterator> index;
     int cap = 0;
@@ -40,7 +40,7 @@ public:
             return -1;
         //index[key]
         auto ele = *(index[key]);
-	//## erase by interator 
+        //## erase by interator 
         data.erase(index[key]);
         data.push_back(ele);
         index[ele.first] = --data.end();
@@ -69,46 +69,46 @@ public:
 import "container/list"
 
 type LRUCache struct {
-	m          map[int]*list.Element
-	accessTime *list.List
-	capacity   int
+    m          map[int]*list.Element
+    accessTime *list.List
+    capacity   int
 }
 type record struct {
-	k int
-	v int
+    k int
+    v int
 }
 
 func Constructor(capacity int) LRUCache {
-	return LRUCache{make(map[int]*list.Element), list.New(), capacity}
+    return LRUCache{make(map[int]*list.Element), list.New(), capacity}
 }
 
 func (this *LRUCache) Get(key int) int {
-	if e, ok := this.m[key]; ok {
-		this.accessTime.MoveToFront(e)
-		if r, ok := e.Value.(*record); ok {
-			return r.v
-		}
-	}
-	return -1
+    if e, ok := this.m[key]; ok {
+        this.accessTime.MoveToFront(e)
+        if r, ok := e.Value.(*record); ok {
+            return r.v
+        }
+    }
+    return -1
 }
 
 func (this *LRUCache) Put(key int, value int) {
-	// modify existing record
-	if e, ok := this.m[key]; ok {
-		this.accessTime.MoveToFront(e)
-		if r, ok := e.Value.(*record); ok {
-			// use pointer to modify element otherwise would modify copied element
-			r.v = value
-		}
-		return
-	}
-	// pop out victim
-	if this.accessTime.Len() == this.capacity {
-		if target, ok := this.accessTime.Back().Value.(*record); ok {
-			delete(this.m, target.k)
-			this.accessTime.Remove(this.accessTime.Back())
-		}
-	}
-	this.m[key] = this.accessTime.PushFront(&record{key, value})
+    // modify existing record
+    if e, ok := this.m[key]; ok {
+        this.accessTime.MoveToFront(e)
+        if r, ok := e.Value.(*record); ok {
+            // use pointer to modify element otherwise would modify copied element
+            r.v = value
+        }
+        return
+    }
+    // pop out victim
+    if this.accessTime.Len() == this.capacity {
+        if target, ok := this.accessTime.Back().Value.(*record); ok {
+            delete(this.m, target.k)
+            this.accessTime.Remove(this.accessTime.Back())
+        }
+    }
+    this.m[key] = this.accessTime.PushFront(&record{key, value})
 }
 ```

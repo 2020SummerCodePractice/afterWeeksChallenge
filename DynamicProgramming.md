@@ -13,7 +13,14 @@
 3. Loop, dp table[i] <= dp table[i-1], bottom-top approach
 4. N, dp table[N+1], dp_i = dp_i-1 + dp_i-2
 
+## Exercises
 
-# exercises
+* 887. Super Egg Drop -"hard but popular in interview"
 
-887. Super Egg Drop -"hard but popular in interview" 
+### Best time to buy and sell stock series
+
+### House robber series
+
+* 198. House Robber
+* 213. House Robber II
+* 337. House Robber III
