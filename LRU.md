@@ -26,7 +26,7 @@
 class LRUCache {
 public:
     //# hyribd use of STL, double linked list and key value index
-
+    
     list<pair<int, int>> data;
     unordered_map<int, list<pair<int, int>>::iterator> index;
     int cap = 0;
@@ -40,7 +40,9 @@ public:
             return -1;
         //index[key]
         auto ele = *(index[key]);
+        
         //## erase by interator 
+
         data.erase(index[key]);
         data.push_back(ele);
         index[ele.first] = --data.end();
