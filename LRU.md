@@ -19,7 +19,76 @@
 ## Implementation
 
 ```java
+class Node{
+         int key;
+         int val;
+         Node next;
+         Node prev;
+         public Node(int k, int v) { key = k; val = v; next = null; prev = null; }
+     }
+ class LRUCache {
+     final Node head = new Node(0,0);
+     final Node tail = new Node(0,0);
+     int cache_cap;
+     HashMap<Integer, Node> nodes;
 
+     public LRUCache(int capacity) {
+         cache_cap = capacity;
+         nodes = new HashMap<>(capacity);
+
+         head.next = tail;
+         tail.prev = head;
+         head.prev = null;
+         tail.next = null;
+     }
+
+     public int get(int key) {
+        // delete first, then add will make sure the get one is the most recent visited element
+         if (nodes.get(key) != null){
+             Node node = nodes.get(key);
+             removeLinkedList(node);
+             addLinkedList(node);
+             return node.val;
+         }
+         return -1;
+     }
+
+     public void put(int key, int value) {
+ 		//three cases
+ 		//1. only update the value part
+         if (nodes.get(key) != null) {
+             Node node = nodes.get(key);
+             node.val= value;
+             removeLinkedList(node);
+             addLinkedList(node);
+ 	    }
+         else
+         {
+
+             Node node = new Node(key, value);
+ 		//2. availble space to add one more
+             if (nodes.size() < cache_cap) {
+                 addLinkedList(node);
+             } else { //3.delete least recent used
+                 nodes.remove(tail.prev.key);
+                 removeLinkedList(tail.prev);
+                 addLinkedList(node);
+             }
+             nodes.put(key, node);
+ 	    }
+     }
+     public void addLinkedList(Node node){
+         node.next = head.next;
+         head.next.prev = node;
+         head.next = node;
+         node.prev = head;
+
+     }
+     public void removeLinkedList(Node node){
+         node.prev.next = node.next;
+         node.next.prev = node.prev;
+     }
+}
 ```
 
 ```cpp
